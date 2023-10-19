@@ -6,6 +6,14 @@ Pentagon::Pentagon(std::istream &is) {
     }
 }
 
+Pentagon::Pentagon(const Point& p1, const Point& p2, const Point& p3, const Point& p4, const Point& p5) {
+    points[0] = p1;
+    points[1] = p2;
+    points[2] = p3;
+    points[3] = p4;
+    points[4] = p5;
+}
+
 void Pentagon::Print(std::ostream &os) const {
     for (const auto& p :points) {
         os << p << " ";
@@ -22,21 +30,26 @@ double Pentagon::Square() const {
     return std::fabs(area) / 2.0;
 }
 
-Pentagon::Pentagon(const Pentagon& other) {
+Figure& Pentagon::operator=(const Figure& other){
+    const Pentagon* otherPentagon = dynamic_cast<const Pentagon*>(&other);
     for (int i = 0; i < 5; ++i) {
-        points[i] = other.points[i];
+        points[i] = otherPentagon->points[i];
     }
+    return *this;
 }
 
-Pentagon::Pentagon(Pentagon&& other) noexcept {
+Figure& Pentagon::move(Figure&& other) noexcept {
+    const Pentagon* otherPentagon = dynamic_cast<const Pentagon*>(&other);
     for (int i = 0; i < 5; ++i) {
-        points[i] = std::move(other.points[i]);
+        points[i] = std::move(otherPentagon->points[i]);
     }
+    return *this;
 }
 
-bool Pentagon::operator==(const Pentagon& other) const {
+bool Pentagon::operator==(const Figure& other) const {
+    const Pentagon* otherPentagon = dynamic_cast<const Pentagon*>(&other);
     for (int i = 0; i < 5; ++i) {
-        if (points[i].getX() != other.points[i].getX() || points[i].getY() != other.points[i].getY()) {
+        if (points[i].getX() != otherPentagon->points[i].getX() || points[i].getY() != otherPentagon->points[i].getY()) {
             return false;
         }
     }

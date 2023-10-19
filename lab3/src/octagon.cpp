@@ -23,26 +23,32 @@ double Octagon::Square() const {
     return fabs(result) / 2.0;
 }
 
-Octagon::Octagon(const Octagon& other) {
-    for (int i = 0; i < 8; ++i) {
-        points[i] = other.points[i];
+Figure& Octagon::operator=(const Figure& other){
+    const Octagon* otherOctagon = dynamic_cast<const Octagon*>(&other);
+    for (int i = 0; i < 5; ++i) {
+        points[i] = otherOctagon->points[i];
     }
+    return *this;
 }
 
-Octagon::Octagon(Octagon&& other) noexcept {
-    for (int i = 0; i < 8; ++i) {
-        points[i] = std::move(other.points[i]);
+Figure& Octagon::move(Figure&& other) noexcept {
+    const Octagon* otherOctagon = dynamic_cast<const Octagon*>(&other);
+    for (int i = 0; i < 5; ++i) {
+        points[i] = std::move(otherOctagon->points[i]);
     }
+    return *this;
 }
 
-bool Octagon::operator==(const Octagon& other) const {
-    for (int i = 0; i < 8; ++i) {
-        if (points[i].getX() != other.points[i].getX() || points[i].getY() != other.points[i].getY()) {
+bool Octagon::operator==(const Figure& other) const {
+    const Octagon* otherOctagon = dynamic_cast<const Octagon*>(&other);
+    for (int i = 0; i < 5; ++i) {
+        if (points[i].getX() != otherOctagon->points[i].getX() || points[i].getY() != otherOctagon->points[i].getY()) {
             return false;
         }
     }
     return true;
 }
+
 
 Point Octagon::Center() const {
     double centerX = 0.0;

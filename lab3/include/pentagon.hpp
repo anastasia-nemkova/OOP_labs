@@ -9,14 +9,15 @@ private:
 public:
     Pentagon() = default;
     Pentagon(std::istream &is);
+    Pentagon(const Point& p1,const Point& p2, const Point& p3,  const Point& p4, const Point& p5);
 
     void Print(std::ostream &os) const override;
-    double Square() const override;
+    double Square() const;
     Point Center() const override;
    
-    Pentagon(const Pentagon& other); // Конструктор копирования
-    Pentagon(Pentagon&& other) noexcept; // Конструктор перемещения
-    bool operator==(const Pentagon& other) const; // Оператор сравнения
+    Figure& operator=(const Figure& other) override; // Конструктор копирования
+    Figure& move(Figure&& other) noexcept override; // Конструктор перемещения
+    bool operator==(const Figure& other) const override; // Оператор сравнения
     
     virtual ~Pentagon() = default;
 };

@@ -11,8 +11,18 @@
 TEST(pentagon, square) {
     std::stringstream ss;
     ss << "-2 0\n-1 2\n1 2\n2 0\n0 -2\n";
-    Pentagon p(ss);
+    //Pentagon p(ss);
+    Figure *fig = new Pentagon(ss);
+    EXPECT_EQ(fig->Square(), 10);
+    //EXPECT_EQ(p.Square(), 10);
+}
 
+TEST(pentagon1, square1) {
+    //std::stringstream ss;
+    //ss << "-2 0\n-1 2\n1 2\n2 0\n0 -2\n";
+    Pentagon p(Point(-2, 0), Point(-1, 2), Point(1, 2), Point(2, 0), Point(0, -2));
+    //Figure *fig = new Pentagon(ss);
+    //EXPECT_EQ(fig->Square(), 10);
     EXPECT_EQ(p.Square(), 10);
 }
 

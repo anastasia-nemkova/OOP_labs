@@ -23,26 +23,32 @@ double Hexagon::Square() const {
     return fabs(result) / 2.0;
 }
 
-Hexagon::Hexagon(const Hexagon& other) {
-    for (int i = 0; i < 6; ++i) {
-        points[i] = other.points[i];
+Figure& Hexagon::operator=(const Figure& other){
+    const Hexagon* otherHexagon = dynamic_cast<const Hexagon*>(&other);
+    for (int i = 0; i < 5; ++i) {
+        points[i] = otherHexagon->points[i];
     }
+    return *this;
 }
 
-Hexagon::Hexagon(Hexagon&& other) noexcept {
-    for (int i = 0; i < 6; ++i) {
-        points[i] = std::move(other.points[i]);
+Figure& Hexagon::move(Figure&& other) noexcept {
+    const Hexagon* otherHexagon = dynamic_cast<const Hexagon*>(&other);
+    for (int i = 0; i < 5; ++i) {
+        points[i] = std::move(otherHexagon->points[i]);
     }
+    return *this;
 }
 
-bool Hexagon::operator==(const Hexagon& other) const {
-    for (int i = 0; i < 6; ++i) {
-        if (points[i].getX() != other.points[i].getX() || points[i].getY() != other.points[i].getY()) {
+bool Hexagon::operator==(const Figure& other) const {
+    const Hexagon* otherHexagon = dynamic_cast<const Hexagon*>(&other);
+    for (int i = 0; i < 5; ++i) {
+        if (points[i].getX() != otherHexagon->points[i].getX() || points[i].getY() != otherHexagon->points[i].getY()) {
             return false;
         }
     }
     return true;
 }
+
 
 Point Hexagon::Center() const {
     double centerX = 0.0;

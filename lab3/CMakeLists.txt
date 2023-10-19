@@ -12,7 +12,7 @@ set(TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 include_directories(${INCLUDE_DIR})
 
-file(GLOB_RECURSE SOURCES LIST_DIRECTORIES false point.cpp pentagon.cpp hexagon.cpp octagon.cpp)
+file(GLOB_RECURSE SOURCES LIST_DIRECTORIES false figures.cpp point.cpp pentagon.cpp hexagon.cpp octagon.cpp)
 file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false test.cpp)
 
 add_library(${CMAKE_PROJECT_NAME}_lib ${SOURCES})

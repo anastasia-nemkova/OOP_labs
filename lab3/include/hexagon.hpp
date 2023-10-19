@@ -11,12 +11,12 @@ public:
     Hexagon(std::istream &is);
 
     void Print(std::ostream &os) const override;
-    double Square() const override;
+    double Square() const;
     Point Center() const override;
    
-    Hexagon(const Hexagon& other); // Конструктор копирования
-    Hexagon(Hexagon&& other) noexcept; // Конструктор перемещения
-    bool operator==(const Hexagon& other) const; // Оператор сравнения
+    Figure& operator=(const Figure& other) override; // Конструктор копирования
+    Figure& move(Figure&& other) noexcept override; // Конструктор перемещения
+    bool operator==(const Figure& other) const override; // Оператор сравнения
     
     virtual ~Hexagon() = default;
 };
